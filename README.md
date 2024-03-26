@@ -4,7 +4,7 @@ Implement simple web application which will visualize data to user. Use single p
 While designing web application pay extra attention on:
 - using default framework components, modules, extra features which are available
 - user experience
-- 
+  
 Tasks:
 - setup application using your framework
 - integrate one free theme into your application
