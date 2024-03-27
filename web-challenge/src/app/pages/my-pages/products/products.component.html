@@ -1,9 +1,5 @@
-<!-- ============================================================== -->
-<!-- Simple four boxes Row -->
-<!-- ============================================================== -->
-<mat-card class="cardWithShadow">
+<mat-card class="cardWithShadow" *ngFor="let product of productsList">
   <mat-card-content>
-    <mat-card-title>Products page</mat-card-title>
+    <mat-card-title>{{ product.id }} - {{ product.title }}</mat-card-title>
   </mat-card-content>
 </mat-card>
-<app-products *ngFor="let product of productsList"></app-products>

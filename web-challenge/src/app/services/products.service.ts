@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Products } from '../pages/my-pages/products/products';
+import { HttpClient } from '@angular/common/http';
+import { Product, ProductsResponse } from '../pages/my-pages/products/product';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,12 +9,11 @@ import { Products } from '../pages/my-pages/products/products';
 
 export class ProductsService {
 
-  url = "https://dummyjson.com/products"
+  private url = "https://dummyjson.com/products"
 
-  async getAllProducts(): Promise<Products[]>{
-    const data = await fetch(this.url);
-    return await data.json();
+  constructor(private http: HttpClient) {}
+
+  getAllProducts(): Observable<ProductsResponse>{
+    return this.http.get<ProductsResponse>(this.url);
   }
-
-  constructor() {}
 }

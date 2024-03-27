@@ -1,5 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
-import { Products } from './products';
+import { Component, Input, OnInit } from '@angular/core';
+import { Product } from './product';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -9,18 +9,14 @@ import { ProductsService } from 'src/app/services/products.service';
 
 export class AppProductsComponent implements OnInit {
 
-  productsList: Products[] = [];
-  productsService: ProductsService = inject(ProductsService);
-
-  constructor() {
-    this.productsService.getAllProducts().then(
-      (productsList: Products[]) => {
-        this.productsList = productsList;
-        console.log(this.productsList);
-      }
-    );
+  @Input() product: Product;
+  productsList: Product[];
+  
+  constructor(private productsService: ProductsService) {
+    this.productsService.getAllProducts().subscribe(res => {
+      this.productsList = res.products ?? []; 
+    })
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 }
