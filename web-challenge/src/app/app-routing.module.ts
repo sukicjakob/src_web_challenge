@@ -30,6 +30,11 @@ const routes: Routes = [
         loadChildren: () =>
           import('./pages/extra/extra.module').then((m) => m.ExtraModule),
       },
+      {
+        path: 'my-pages',
+        loadChildren: () =>
+          import('./pages/my-pages/my-pages.module').then((m) => m.MyPagesModule),
+      }
     ],
   },
   {
@@ -51,4 +56,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
+
 export class AppRoutingModule {}

@@ -10,6 +10,21 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
+    navCap: 'My pages'
+  },
+  {
+    displayName: 'Products',
+    route: '/my-pages/products',
+  },
+  {
+    displayName: 'Users',
+    route: '/my-pages/users',
+  },
+  {
+    displayName: 'Carts',
+    route: '/my-pages/carts',
+  },
+  {
     navCap: 'Ui Components',
   },
   {
