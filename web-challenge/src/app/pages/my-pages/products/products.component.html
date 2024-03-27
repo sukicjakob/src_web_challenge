@@ -46,6 +46,13 @@
 
 <br/>
 
+<h2>Select category:</h2>
+<mat-chip-listbox id="categoryChips" aria-label="Category selection">
+  <mat-chip-option *ngFor="let category of categories">{{ category }}</mat-chip-option>
+</mat-chip-listbox>
+
+<br/>
+
 <div class="row">
   <div class="col-sm-6 col-lg-3" *ngFor="let product of filteredProductsList">
     <mat-card class="cardWithShadow productcard overflow-hidden">

@@ -29,7 +29,15 @@ export class ProductsService {
     return this.http.get<Product>(this.baseUrl + "/" + productId);
   }
 
+  getProductsFromCategory(category: string): Observable<ProductsResponse>{
+    return this.http.get<ProductsResponse>(this.baseUrl + "category/" + category);
+  }
+
   searchProducts(query: string): Observable<ProductsResponse>{
     return this.http.get<ProductsResponse>(this.baseUrl + "/search?q=" + query);
+  }
+
+  getCategories():Observable<string[]>{
+    return this.http.get<string[]>(this.baseUrl + "/categories");
   }
 }

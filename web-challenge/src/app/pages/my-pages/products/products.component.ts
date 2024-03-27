@@ -12,6 +12,8 @@ export class AppProductsComponent implements OnInit {
   @Input() product: Product;
   productsList: Product[];
   filteredProductsList: Product[];
+  categories: string[];
+  selectedCategory: string;
   searchValue: string = "";
   limitValue: number = 0;
   skipValue: number = 0;
@@ -19,6 +21,7 @@ export class AppProductsComponent implements OnInit {
 
   constructor(private productsService: ProductsService) {
     this.getAllProducts();
+    this.getCategories();
   }
 
   getAllProducts(){
@@ -54,6 +57,13 @@ export class AppProductsComponent implements OnInit {
     this.skipValue = parseInt((<HTMLInputElement>document.getElementById("skipInputField")).value);
     this.selectValue = (<HTMLInputElement>document.getElementById("selectInputField")).value;
     this.getAllProducts();
+  }
+
+  getCategories(){
+    this.productsService.getCategories().subscribe(res => {
+      this.categories = res;
+      console.log("Categories: " + this.categories);
+    });
   }
 
   ngOnInit(): void {}
