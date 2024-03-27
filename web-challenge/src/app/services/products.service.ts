@@ -14,6 +14,6 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getAllProducts(): Observable<ProductsResponse>{
-    return this.http.get<ProductsResponse>(this.url);
+    return this.http.get<ProductsResponse>(this.url + "?limit=0");
   }
 }
