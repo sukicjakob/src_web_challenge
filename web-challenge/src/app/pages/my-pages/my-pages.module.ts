@@ -12,6 +12,7 @@ import { MyPagesRoutes } from './my-pages.routing';
 import { AppProductsComponent } from './products/products.component';
 import { AppUsersComponent } from './users/users.component';
 import { AppCartsComponent } from './carts/carts.component';
+import { AppProductDetailsComponent } from './products/product-details.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { AppCartsComponent } from './carts/carts.component';
   ],
   declarations: [
     AppProductsComponent,
+    AppProductDetailsComponent,
     AppUsersComponent,
     AppCartsComponent
   ],
