@@ -1,9 +1,31 @@
-<!-- ============================================================== -->
-<!-- Simple four boxes Row -->
-<!-- ============================================================== -->
-<mat-card class="cardWithShadow">
-    <mat-card-content>
-      <mat-card-title>Carts Page</mat-card-title>
-    </mat-card-content>
-  </mat-card>
-  
+<h1>Carts</h1>
+
+<h2>Limit, skip and select settings:</h2>
+
+<mat-form-field class="example-full-width">
+  <mat-label>Limit</mat-label>
+  <input matInput id="limitInputField">
+</mat-form-field>
+&nbsp;
+<mat-form-field class="example-full-width">
+  <mat-label>Skip</mat-label>
+  <input matInput id="skipInputField">
+</mat-form-field>
+&nbsp;
+<mat-form-field class="example-full-width">
+  <mat-label>Select</mat-label>
+  <input matInput id="selectInputField">
+</mat-form-field>
+<div class="example-button-row">
+  <button mat-flat-button color="primary" (click)="applySettings()">Apply</button>
+</div>
+
+<br/>
+
+<div *ngFor="let cart of cartsList">
+  <div>Cart {{ cart.id }} </div>
+  <div *ngFor="let product of cart.products">Title{{ product.title }}</div>
+  <a [routerLink]="['/my-pages/cart', cart.id]">
+    Details
+  </a>
+</div>

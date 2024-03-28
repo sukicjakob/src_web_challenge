@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User, UsersResponse, UserBank, UserCompany, UserHair, Address, Coordinates, PostsResponse, TodosResponse } from '../models/user';
+import { User, UsersResponse} from '../models/user';
+import { PostsResponse } from '../models/post';
+import { TodosResponse } from '../models/todo';
 import { Observable, catchError } from 'rxjs';
 import { CartsResponse } from '../../carts/models/cart';
 

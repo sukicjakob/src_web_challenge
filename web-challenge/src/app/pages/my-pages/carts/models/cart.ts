@@ -10,7 +10,7 @@ export interface CartsResponse {
 
 export interface Cart {
     id: number,
-    product: Product[],
+    products: Product[],
     total: number,
     discountedTotal: number,
     userId: number,
