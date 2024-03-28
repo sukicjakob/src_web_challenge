@@ -44,16 +44,16 @@ export class UsersService {
     return this.http.get<UsersResponse>(this.baseUrl + "/filter?" + filter);
   }
 
-  getUsersCarts(userId: string): Observable<CartsResponse>{
-    return this.http.get<CartsResponse>(this.baseUrl + "/users/" + userId + "/carts");
+  getUsersCarts(userId: number): Observable<CartsResponse>{
+    return this.http.get<CartsResponse>(this.baseUrl + "/" + userId + "/carts");
   }
 
-  getUsersPosts(userId: string): Observable<PostsResponse>{
-    return this.http.get<PostsResponse>(this.baseUrl + "/users/" + userId + "/posts");
+  getUsersPosts(userId: number): Observable<PostsResponse>{
+    return this.http.get<PostsResponse>(this.baseUrl + "/" + userId + "/posts");
   }
 
-  getUsersTodos(userId: string): Observable<TodosResponse>{
-    return this.http.get<TodosResponse>(this.baseUrl + "/users/" + userId + "/todos");
+  getUsersTodos(userId: number): Observable<TodosResponse>{
+    return this.http.get<TodosResponse>(this.baseUrl + "/" + userId + "/todos");
   }
 
   addUser(user: User):Observable<User>{

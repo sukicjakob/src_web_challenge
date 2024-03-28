@@ -13,6 +13,9 @@ import * as TablerIcons from 'angular-tabler-icons/icons';
 //Import all material modules
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 
 //Import Layouts
 import { FullComponent } from './layouts/full/full.component';
@@ -43,6 +46,7 @@ import { AppNavItemComponent } from './layouts/full/sidebar/nav-item/nav-item.co
     ReactiveFormsModule,
     MaterialModule,
     TablerIconsModule.pick(TablerIcons),
+    MatNativeDateModule
   ],
   exports: [TablerIconsModule],
   bootstrap: [AppComponent],

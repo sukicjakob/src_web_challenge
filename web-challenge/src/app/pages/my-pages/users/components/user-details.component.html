@@ -4,33 +4,148 @@
       <div class="user-details-card">
         <div class="info-section">
             <mat-card-subtitle>Basic info</mat-card-subtitle>
-            <b>Name: </b> {{ user.firstName }} {{ user.lastName }}<br>
-            <b>Birth date: </b> {{ user.birthDate }}<br>
-            <b>Gender: </b> {{ user.gender }}<br>
-            <b>Height: </b> {{ user.height }}cm<br>
-            <b>Weight: </b> {{ user.weight }}kg<br>
+
+            <mat-form-field class="half-size">
+              <mat-label>First name</mat-label>
+              <input matInput value="{{ user.firstName }}">
+            </mat-form-field>
+            <mat-form-field class="half-size">
+              <mat-label>Last name</mat-label>
+              <input matInput value="{{ user.lastName }}">
+            </mat-form-field>
+            <br/>
+
+            <mat-form-field class="full-size">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="picker" class="full-size">
+              <mat-hint>YYYY-MM-DD</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-size">
+              <mat-label>Gender</mat-label>
+              <mat-select>
+                <mat-option value="male">Male</mat-option>
+                <mat-option value="female">Female</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="half-size">
+              <mat-label>Height (cm)</mat-label>
+              <input matInput value="{{ user.height }}">
+            </mat-form-field>
+            <mat-form-field class="half-size">
+              <mat-label>Weight (kg)</mat-label>
+              <input matInput value="{{ user.weight }}">
+            </mat-form-field>
+
             <br>
             <mat-card-subtitle>Contact info</mat-card-subtitle>
-            <b>Email: </b> {{ user.email }}<br>
-            <b>Phone: </b> {{ user.phone }}<br>
-            <b>Address: </b> {{ user.address.address }}, {{ user.address.postalCode  }} {{ user.address.city }} <br>
+            <mat-form-field class="half-size">
+              <mat-label>Email</mat-label>
+              <input matInput value="{{ user.email }}">
+            </mat-form-field>
+            <mat-form-field class="half-size">
+              <mat-label>Phone</mat-label>
+              <input matInput value="{{ user.phone }}" >
+            </mat-form-field>
+            <br>
+            <mat-form-field class="full-size">
+              <mat-label>Address</mat-label>
+              <input matInput value="{{ user.address.address }}">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="half-size">
+              <mat-label>Postal code</mat-label>
+              <input matInput value="{{ user.address.postalCode }}">
+            </mat-form-field>
+            <mat-form-field class="half-size">
+              <mat-label>City</mat-label>
+              <input matInput value="{{ user.address.city }}">
+            </mat-form-field>
             <br/>
-            <mat-card-subtitle>Bank info</mat-card-subtitle>
-            <b>Card type: </b> {{ user.bank.cardType }}<br>
-            <b>Card number: </b> {{ user.bank.cardNumber }}<br>
-            <b>IBAN: </b> {{ user.bank.iban }}<br>
-            <b>Expiration date: </b> {{ user.bank.cardExpire }}<br>
-            <br/>
-            <mat-card-subtitle>Employment info</mat-card-subtitle>
-            <b>Company: </b> {{ user.company.name }}<br>
-            <b>Department: </b> {{ user.company.department }}<br>
-            <b>Title: </b> {{ user.company.title }}<br>
         </div>
         <div class="image-section">
             <img src="{{ user.image }}" alt="user image"/><br>
-            <div class="basic-info">
-
-            </div>
+        </div>
+      </div>
+      <hr><br>
+      <div class="other-info">
+        <div class="bank-info">
+          <mat-card-subtitle>Bank info</mat-card-subtitle>
+          <b>Card type: </b> {{ user.bank.cardType }}<br>
+          <b>Card number: </b> {{ user.bank.cardNumber }}<br>
+          <b>IBAN: </b> {{ user.bank.iban }}<br>
+          <b>Expiration date: </b> {{ user.bank.cardExpire }}<br></div>
+        <div class="employment-info">
+          <mat-card-subtitle>Employment info</mat-card-subtitle>
+          <b>Company: </b> {{ user.company.name }}<br>
+          <b>Department: </b> {{ user.company.department }}<br>
+          <b>Title: </b> {{ user.company.title }}<br>
+        </div>
+      </div>
+      <hr><br>
+      <div class="other-info">
+        <div class="carts-info">
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Carts
+                </mat-panel-title>
+                <mat-panel-description>
+                  <b>{{ userCarts.length }} carts</b>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p *ngFor="let cart of userCarts">
+                Cart info: <br/>
+                ID: {{ cart.id }}<br/>
+                Number of products: {{ cart.products.length }}
+              </p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="posts-info">
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Posts
+                </mat-panel-title>
+                <mat-panel-description>
+                  <b>{{ userPosts.length }} posts</b>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p *ngFor="let post of userPosts">
+                Post info: <br/>
+                ID: {{ post.id }}<br/>
+                Title: {{ post.title }}<br/>
+                Body: {{ post.body }}<br/>
+                Reaction: {{ post.reaction }}<br/>
+                Tags: {{ post.tags }}<br/>
+              </p>
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <div class="todos-info">
+          <mat-accordion>
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Todos
+                </mat-panel-title>
+                <mat-panel-description>
+                  <b>{{ userTodos.length }} todos</b>
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <p *ngFor="let todo of userTodos">
+                Todo info: <br/>
+                ID: {{ todo.id }}<br/>
+                Todo: {{ todo.todo }}
+              </p>
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
       </div>
     </mat-card-content>

@@ -2,7 +2,6 @@
     width: 100%;
     display: flex;
     flex-direction: row;
-    align-items: center;
 
     @media (max-width: 1024px) {
         flex-direction: column-reverse;
@@ -14,6 +13,14 @@
         text-transform: uppercase;
         color: black;
         padding-bottom: 0.5em;
+    }
+
+    .half-size{
+        width: 50%;
+    }
+
+    .full-size{
+        width: 100%;
     }
 
     .info-section{
@@ -29,5 +36,26 @@
         @media (max-width: 1024px) {
             width: 100%;
         }
+    }
+}
+
+.other-info{
+    display: flex;
+    width: 100%;
+
+    mat-card-subtitle{
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: black;
+        padding-bottom: 0.5em;
+    }
+
+    .carts-info, .posts-info, .todos-info{
+        width: 33.3%;
+    }
+
+    .bank-info, .employment-info{
+        width: 50%;
     }
 }
