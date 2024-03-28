@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
@@ -8,7 +7,6 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-products',
   templateUrl: './users.component.html',
-  styleUrls: ['./styles/users.component.scss']
 })
 
 export class AppUsersComponent implements OnInit {

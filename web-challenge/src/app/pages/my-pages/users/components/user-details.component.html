@@ -1,2 +1,37 @@
-<h1>User details</h1>
-{{ user.firstName }} {{ user.lastName }}
+<mat-card class="cardWithShadow">
+    <mat-card-content>
+      <mat-card-title>User details</mat-card-title><br/>
+      <div class="user-details-card">
+        <div class="info-section">
+            <mat-card-subtitle>Basic info</mat-card-subtitle>
+            <b>Name: </b> {{ user.firstName }} {{ user.lastName }}<br>
+            <b>Birth date: </b> {{ user.birthDate }}<br>
+            <b>Gender: </b> {{ user.gender }}<br>
+            <b>Height: </b> {{ user.height }}cm<br>
+            <b>Weight: </b> {{ user.weight }}kg<br>
+            <br>
+            <mat-card-subtitle>Contact info</mat-card-subtitle>
+            <b>Email: </b> {{ user.email }}<br>
+            <b>Phone: </b> {{ user.phone }}<br>
+            <b>Address: </b> {{ user.address.address }}, {{ user.address.postalCode  }} {{ user.address.city }} <br>
+            <br/>
+            <mat-card-subtitle>Bank info</mat-card-subtitle>
+            <b>Card type: </b> {{ user.bank.cardType }}<br>
+            <b>Card number: </b> {{ user.bank.cardNumber }}<br>
+            <b>IBAN: </b> {{ user.bank.iban }}<br>
+            <b>Expiration date: </b> {{ user.bank.cardExpire }}<br>
+            <br/>
+            <mat-card-subtitle>Employment info</mat-card-subtitle>
+            <b>Company: </b> {{ user.company.name }}<br>
+            <b>Department: </b> {{ user.company.department }}<br>
+            <b>Title: </b> {{ user.company.title }}<br>
+        </div>
+        <div class="image-section">
+            <img src="{{ user.image }}" alt="user image"/><br>
+            <div class="basic-info">
+
+            </div>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>

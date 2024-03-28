@@ -3,10 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
 import { ActivatedRoute } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-user-details',
-  templateUrl: './user-details.component.html'
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./styles/user-details.component.scss']
 })
 
 export class AppUserDetailsComponent implements OnInit {
@@ -14,6 +17,10 @@ export class AppUserDetailsComponent implements OnInit {
   @Input() user: User = {} as User;
   route: ActivatedRoute = inject(ActivatedRoute);
   userId = -1;
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ];
 
   updateProductForm = new FormGroup({
     title: new FormControl(''),

@@ -13,6 +13,8 @@ import { AppProductsComponent } from './products/components/products.component';
 import { AppUsersComponent } from './users/components/users.component';
 import { AppCartsComponent } from './carts/components/carts.component';
 import { AppProductDetailsComponent } from './products/components/product-details.component';
+import { AppUserDetailsComponent } from './users/components/user-details.component';
+import { AppCartDetailsComponent } from './carts/components/cart-details.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { AppProductDetailsComponent } from './products/components/product-detail
     AppProductsComponent,
     AppProductDetailsComponent,
     AppUsersComponent,
-    AppCartsComponent
+    AppUserDetailsComponent,
+    AppCartsComponent,
+    AppCartDetailsComponent
   ],
 })
 
