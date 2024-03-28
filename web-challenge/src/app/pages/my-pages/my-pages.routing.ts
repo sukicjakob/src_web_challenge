@@ -2,10 +2,10 @@ import { Routes } from '@angular/router';
 
 
 // pages
-import { AppProductsComponent } from './products/products.component';
-import { AppProductDetailsComponent } from './products/product-details.component';
-import { AppUsersComponent } from './users/users.component';
-import { AppCartsComponent } from './carts/carts.component';
+import { AppProductsComponent } from './products/components/products.component';
+import { AppProductDetailsComponent } from './products/components/product-details.component';
+import { AppUsersComponent } from './users/components/users.component';
+import { AppCartsComponent } from './carts/components/carts.component';
 
 export const MyPagesRoutes: Routes = [
   {

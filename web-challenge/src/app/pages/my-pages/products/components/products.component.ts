@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { Product } from './product';
-import { ProductsService } from 'src/app/services/products.service';
+import { Product } from '../models/product';
+import { ProductsService } from 'src/app/pages/my-pages/products/services/products.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
