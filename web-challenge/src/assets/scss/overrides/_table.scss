@@ -6,3 +6,17 @@
 .mdc-data-table__cell, .mdc-data-table__header-cell {
     border-bottom-color: $borderColor;
 }
+
+.mat-mdc-row.mdc-data-table__row.cdk-row.user-row.ng-star-inserted{
+
+  &:hover{
+    background: $hoverBgColor!important;
+    cursor: pointer;
+  }
+  
+  .user-image{
+    height: 7.5vh;
+    width: auto;
+    object-fit: cover;
+}
+}

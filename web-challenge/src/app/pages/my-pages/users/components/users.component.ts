@@ -1,12 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './users.component.html'
+  templateUrl: './users.component.html',
+  styleUrls: ['./styles/users.component.scss']
 })
 
 export class AppUsersComponent implements OnInit {
@@ -18,6 +20,7 @@ export class AppUsersComponent implements OnInit {
   limitValue: number = 0;
   skipValue: number = 0;
   selectValue: string = "";
+  displayedColumns: string[] = ['image', 'name', 'address', 'email', 'phone'];
   imports: [
     CommonModule,
     ReactiveFormsModule
@@ -30,7 +33,7 @@ export class AppUsersComponent implements OnInit {
   getAllUsers(){
     this.usersService.getAllUsers(this.limitValue, this.skipValue, this.selectValue).subscribe(res => {
       this.usersList = res.users ?? [];
-      this.filteredUsersList = this.usersList; 
+      this.filteredUsersList = this.usersList;
     });
   }
 
@@ -60,6 +63,10 @@ export class AppUsersComponent implements OnInit {
     this.skipValue = parseInt((<HTMLInputElement>document.getElementById("skipInputField")).value);
     this.selectValue = (<HTMLInputElement>document.getElementById("selectInputField")).value;
     this.getAllUsers();
+  }
+
+  handleTableRowClick(user: User){
+    console.log("Clicked: " + user.id);
   }
 
   ngOnInit(): void {}
