@@ -30,7 +30,7 @@ export class ProductsService {
   }
 
   getProductsFromCategory(category: string): Observable<ProductsResponse>{
-    return this.http.get<ProductsResponse>(this.baseUrl + "category/" + category);
+    return this.http.get<ProductsResponse>(this.baseUrl + "/category/" + category);
   }
 
   searchProducts(query: string): Observable<ProductsResponse>{

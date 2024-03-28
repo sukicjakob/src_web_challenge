@@ -25,10 +25,18 @@ export class AppProductsComponent implements OnInit {
   }
 
   getAllProducts(){
-    this.productsService.getAllProducts(this.limitValue, this.skipValue, this.selectValue).subscribe(res => {
-      this.productsList = res.products ?? [];
-      this.filteredProductsList = this.productsList; 
-    })
+    if(!this.selectedCategory){
+      this.productsService.getAllProducts(this.limitValue, this.skipValue, this.selectValue).subscribe(res => {
+        this.productsList = res.products ?? [];
+        this.filteredProductsList = this.productsList; 
+      });
+    }
+    else{
+      this.productsService.getProductsFromCategory(this.selectedCategory).subscribe(res => {
+        this.productsList = res.products ?? [];
+        this.filteredProductsList = this.productsList;
+      });
+    }
   }
 
   searchProducts(){
@@ -64,6 +72,16 @@ export class AppProductsComponent implements OnInit {
       this.categories = res;
       console.log("Categories: " + this.categories);
     });
+  }
+
+  setCategory(category: string){
+    if(this.selectedCategory == category)
+      this.selectedCategory = "";
+
+    else
+      this.selectedCategory = category;
+
+    this.getAllProducts();
   }
 
   ngOnInit(): void {}

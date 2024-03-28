@@ -48,7 +48,7 @@
 
 <h2>Select category:</h2>
 <mat-chip-listbox id="categoryChips" aria-label="Category selection">
-  <mat-chip-option *ngFor="let category of categories">{{ category }}</mat-chip-option>
+  <mat-chip-option *ngFor="let category of categories" (click)="setCategory(category)">{{ category }}</mat-chip-option>
 </mat-chip-listbox>
 
 <br/>
