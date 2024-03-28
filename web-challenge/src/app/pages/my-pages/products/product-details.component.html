@@ -34,3 +34,37 @@
 
 <h2>Thumbnail: </h2>
 <p><img src="{{ product.thumbnail }}" alt="product thumbnail"/></p>
+
+<h2>Update product</h2>
+<section class="listing-apply">
+  <h2 class="section-heading">Apply now to live here</h2>
+  <form [formGroup]="updateProductForm" (submit)="submitUpdateProduct()">
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title">
+
+    <label for="description">Description</label>
+    <input id="description" type="text" formControlName="description">
+
+    <label for="price">Price</label>
+    <input id="price" type="text" formControlName="price">
+
+    <label for="discountPercentage">Discount percentage</label>
+    <input id="discountPercentage" type="text" formControlName="discountPercentage">
+    
+    <label for="rating">Rating</label>
+    <input id="rating" type="text" formControlName="rating">
+
+    <label for="stock">Stock</label>
+    <input id="stock" type="text" formControlName="stock">
+
+    <label for="brand">Brand</label>
+    <input id="brand" type="text" formControlName="brand">
+
+    <label for="category">Category</label>
+    <input id="category" type="text" formControlName="category">
+
+    <button type="submit" class="primary">Add product</button>
+  </form>
+</section>
+<h2>Delete product</h2>
+<button type="submit" class="primary" (click)="deleteProduct()">Delete</button>

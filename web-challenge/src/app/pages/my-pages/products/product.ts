@@ -1,3 +1,5 @@
+import { Time } from "@angular/common"
+
 export interface ProductsResponse {
     products: Product[],
     total: number,
@@ -15,6 +17,8 @@ export interface Product {
     stock: number,
     brand: string,
     category: string,
-    thumbnail: string,
-    images: string[]
+    thumbnail?: string,
+    images?: string[],
+    isDeleted?: boolean,
+    deletedOn?: Time
 }

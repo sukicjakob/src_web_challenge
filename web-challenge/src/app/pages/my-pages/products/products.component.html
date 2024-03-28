@@ -1,5 +1,37 @@
 <h1>Products</h1>
 
+<h2>Add product</h2>
+<section class="listing-apply">
+  <h2 class="section-heading">Apply now to live here</h2>
+  <form [formGroup]="addProductForm" (submit)="submitAddProduct()">
+    <label for="title">Title</label>
+    <input id="title" type="text" formControlName="title">
+
+    <label for="description">Description</label>
+    <input id="description" type="text" formControlName="description">
+
+    <label for="price">Price</label>
+    <input id="price" type="text" formControlName="price">
+
+    <label for="discountPercentage">Discount percentage</label>
+    <input id="discountPercentage" type="text" formControlName="discountPercentage">
+    
+    <label for="rating">Rating</label>
+    <input id="rating" type="text" formControlName="rating">
+
+    <label for="stock">Stock</label>
+    <input id="stock" type="text" formControlName="stock">
+
+    <label for="brand">Brand</label>
+    <input id="brand" type="text" formControlName="brand">
+
+    <label for="category">Category</label>
+    <input id="category" type="text" formControlName="category">
+
+    <button type="submit" class="primary">Add product</button>
+  </form>
+</section>
+
 <h2>Limit and skip and select settings:</h2>
 
 <mat-form-field class="example-full-width">

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Product, ProductsResponse } from '../pages/my-pages/products/product';
-import { Observable } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +39,17 @@ export class ProductsService {
 
   getCategories():Observable<string[]>{
     return this.http.get<string[]>(this.baseUrl + "/categories");
+  }
+
+  addProduct(product: Product):Observable<Product>{
+    return this.http.post<Product>(this.baseUrl + "/add", product);
+  }
+
+  updateProduct(product: Product):Observable<Product>{
+    return this.http.put<Product>(this.baseUrl + "/" + product.id, product);
+  }
+
+  deleteProduct(productId: Number): Observable<Product>{
+    return this.http.delete<Product>(this.baseUrl + "/" + productId);
   }
 }

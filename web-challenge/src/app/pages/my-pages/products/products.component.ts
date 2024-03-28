@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Product } from './product';
 import { ProductsService } from 'src/app/services/products.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-products',
@@ -9,7 +11,7 @@ import { ProductsService } from 'src/app/services/products.service';
 
 export class AppProductsComponent implements OnInit {
 
-  @Input() product: Product;
+  @Input() product: Product = {} as Product;
   productsList: Product[];
   filteredProductsList: Product[];
   categories: string[];
@@ -18,10 +20,43 @@ export class AppProductsComponent implements OnInit {
   limitValue: number = 0;
   skipValue: number = 0;
   selectValue: string = "";
+  imports: [
+    CommonModule,
+    ReactiveFormsModule
+  ];
+
+  addProductForm = new FormGroup({
+    title: new FormControl(''),
+    description: new FormControl(''),
+    price: new FormControl(0),
+    discountPercentage: new FormControl(0.0),
+    rating: new FormControl(0),
+    stock: new FormControl(0),
+    brand: new FormControl(''),
+    category: new FormControl(''),
+  })
 
   constructor(private productsService: ProductsService) {
     this.getAllProducts();
     this.getCategories();
+  }
+
+  submitAddProduct(){
+    let product: Product = {
+      id: -1,
+      title: this.addProductForm.value.title ?? '',
+      description: this.addProductForm.value.description ?? '',
+      price: this.addProductForm.value.price ?? 0,
+      discountPercentage: this.addProductForm.value.discountPercentage ?? 0,
+      rating: this.addProductForm.value.rating ?? 0,
+      stock: this.addProductForm.value.stock ?? 0,
+      brand: this.addProductForm.value.brand ?? '',
+      category: this.addProductForm.value.category ?? ''
+    }
+
+    this.productsService.addProduct(product).subscribe(res => {
+      this.productsList.push(res);
+    });
   }
 
   getAllProducts(){
