@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Address } from '../models/address';
 import { AppAddUserDialog } from './add-user-dialog.component';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-products',
@@ -14,6 +15,8 @@ import { AppAddUserDialog } from './add-user-dialog.component';
 })
 
 export class AppUsersComponent implements OnInit {
+
+  @ViewChild(MatTable) table: MatTable<any>;
 
   @Input() user: User = {} as User;
   public usersList: User[];
@@ -77,7 +80,13 @@ export class AppUsersComponent implements OnInit {
   }
 
   openAddUserDialog(){
-    this.addUserDialog.open(AppAddUserDialog,{width:'50%'});
+    this.addUserDialog.open(AppAddUserDialog,{width:'50%'})
+    .afterClosed().subscribe(res => {
+      this.usersList.push(res);
+        if (this.table) {
+          this.table.renderRows();
+        }
+      });
   }
 
   ngOnInit(): void {}

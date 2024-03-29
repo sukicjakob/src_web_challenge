@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Cart } from '../models/cart';
 import { CartsService } from '../services/carts.service';
@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppAddCartDialog } from './add-cart-dialog.component';
 import { User } from '../../users/models/user';
 import { UsersService } from '../../users/services/users.service';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-carts',
@@ -16,6 +17,8 @@ import { UsersService } from '../../users/services/users.service';
 })
 
 export class AppCartsComponent implements OnInit {
+
+  @ViewChild(MatTable) table: MatTable<any>;
 
   @Input() cart: Cart = {} as Cart;
   @Input() cartProducts = [] as Product[];
@@ -49,7 +52,16 @@ export class AppCartsComponent implements OnInit {
   }
 
   openAddCartDialog(){
-    this.addCartDialog.open(AppAddCartDialog,{width:'50%'});
+    this.addCartDialog.open(AppAddCartDialog,{width:'50%'})
+    .afterClosed().subscribe(res => {
+      this.cartsList.push(res);
+      this.usersService.getUser(res.userId).subscribe(userRes => {
+        res.user = userRes
+        if (this.table) {
+          this.table.renderRows();
+        }
+      });
+    });
   }
 
   filterCarts(text: string){

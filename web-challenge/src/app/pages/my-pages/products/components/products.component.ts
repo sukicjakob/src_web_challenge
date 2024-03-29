@@ -108,7 +108,6 @@ export class AppProductsComponent implements OnInit {
   getCategories(){
     this.productsService.getCategories().subscribe(res => {
       this.categories = res;
-      console.log("Categories: " + this.categories);
     });
   }
 
@@ -123,7 +122,12 @@ export class AppProductsComponent implements OnInit {
   }
 
   openAddProductDialog(){
-    this.addProductDialog.open(AppAddProductDialog,{width:'50%'});
+    this.addProductDialog.open(AppAddProductDialog,{width:'50%'})
+    .afterClosed().subscribe(res => {
+        this.filteredProductsList.push(res);
+        let cloned = this.filteredProductsList.slice();
+        this.filteredProductsList = cloned;
+    });
   }
 
   ngOnInit(): void {}

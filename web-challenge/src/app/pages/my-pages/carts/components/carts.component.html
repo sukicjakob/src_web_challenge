@@ -20,7 +20,7 @@
           <!-- User -->
           <ng-container matColumnDef="user">
             <th mat-header-cell *matHeaderCellDef> <b>User</b> </th>
-            <td mat-cell *matCellDef="let cart" >{{ cart.user.firstName }} {{ cart.user.lastName }}</td>
+            <td mat-cell *matCellDef="let cart" >{{ cart.user.firstName ?? "" }} {{ cart.user.lastName ?? ""}}</td>
           </ng-container>
 
           <!-- Total  -->

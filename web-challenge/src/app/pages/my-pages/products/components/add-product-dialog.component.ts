@@ -12,6 +12,8 @@ import { AppAddUserDialog } from "../../users/components/add-user-dialog.compone
   })
 
 export class AppAddProductDialog{
+
+    newProduct: Product = {} as Product;
   
     constructor(private productsService: ProductsService, private addProductDialog: MatDialogRef<AppAddUserDialog>){}
   
@@ -40,12 +42,12 @@ export class AppAddProductDialog{
 
       this.productsService.addProduct(product).subscribe(res => {
         console.log(res)
+        this.newProduct = res;
+        this.closeAddProductDialog();
       });
-
-      this.closeAddProductDialog();
     }
   
     closeAddProductDialog(){
-      this.addProductDialog.close();
+      this.addProductDialog.close(this.newProduct);
     }
   }

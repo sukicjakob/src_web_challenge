@@ -22,6 +22,7 @@ export class AppAddCartDialog{
     @Input() allProducts: Product[] = [];
     @Input() cartProducts: Product[] = [];
 
+    newCart: Cart = {} as Cart;
     selectedProductId: number = -1
     cartUserId: number = -1
     totalSum: number = 0.0;
@@ -63,14 +64,14 @@ export class AppAddCartDialog{
 
         this.cartsService.addCart(cart).subscribe(res => {
           console.log(res)
+          this.newCart = res
+          this.closeAddCartDialog();
         });
-  
-        this.closeAddCartDialog();
       }
     }
   
     closeAddCartDialog(){
-      this.addCartDialog.close();
+      this.addCartDialog.close(this.newCart);
     }
 
     toggleAddProduct(){

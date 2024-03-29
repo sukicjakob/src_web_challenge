@@ -16,6 +16,8 @@ export class AppAddUserDialog{
     @Input() user: User = {} as User;
     @Input() userAddress: Address = {} as Address;
     selectedGender: string = "";
+    newUser: User = {} as User;
+
     constructor(private usersService: UsersService, private addUserDialog: MatDialogRef<AppAddUserDialog>){}
   
     addUserForm = new FormGroup({
@@ -51,12 +53,12 @@ export class AppAddUserDialog{
 
           this.usersService.addUser(user).subscribe(res => {
             console.log(res)
+            this.newUser = res;
+            this.closeAddUserDialog();
           });
-
-          this.closeAddUserDialog();
     }
   
     closeAddUserDialog(){
-      this.addUserDialog.close();
+      this.addUserDialog.close(this.newUser);
     }
   }
