@@ -19,6 +19,7 @@ export class AppUsersComponent implements OnInit {
   public usersList: User[];
   filteredUsersList: User[];
   searchValue: string = "";
+  filterValue: string = "";
   limitValue: number = 0;
   skipValue: number = 0;
   selectValue: string = "";
@@ -51,16 +52,21 @@ export class AppUsersComponent implements OnInit {
     }
 
     this.usersService.searchUsers(this.searchValue).subscribe(res => {
-    this.filteredUsersList = res.users ?? []});
+      this.filteredUsersList = res.users ?? []
+    });
   }
 
-  filterUsers(text: string){
-    if(!text){
-      this.filteredUsersList = this.usersList;
+  filterUsers(){
+    this.filterValue = (<HTMLInputElement>document.getElementById("filterInputField")).value;
+
+    if(!this.filterValue){
+      this.ngOnInit();
       return;
     }
 
-    this.filteredUsersList = this.usersList.filter(user => user?.firstName.toLowerCase().includes(text.toLowerCase()));
+    this.usersService.filterUsers(this.filterValue).subscribe(res => {
+      this.filteredUsersList = res.users ?? [];
+    });
   }
 
   applySettings(){
