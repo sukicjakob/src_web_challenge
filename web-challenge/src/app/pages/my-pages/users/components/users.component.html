@@ -73,7 +73,7 @@
           </ng-container>
         
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr class="user-row" mat-row *matRowDef="let user; columns: displayedColumns;" [routerLink]="['/my-pages/user', user.id]"></tr>
+          <tr class="custom-hover-row" mat-row *matRowDef="let user; columns: displayedColumns;" [routerLink]="['/my-pages/user', user.id]"></tr>
         </table>
       </div>
     </mat-card-content>
@@ -83,5 +83,4 @@
       <mat-icon>add</mat-icon>
     </button>
   </div>
-  <div *ngIf="dialogOpened">Dialog opened: {{ dialogOpened }}</div>
 </div>

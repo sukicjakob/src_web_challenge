@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
-  templateUrl: './cart-details.component.html'
+  templateUrl: './cart-details.component.html',
+  styleUrls: ['./styles/carts.component.scss']
 })
 
 export class AppCartDetailsComponent implements OnInit {
