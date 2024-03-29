@@ -1,5 +1,7 @@
-This app was developed using Angular framework. 
+This app was developed using Angular framework.
+
 To start the app run the command "ng serve" inside the "web-challenge" directory. 
+
 Theme used: https://angulartemplates.com/product/modernize-free-angular-16-material-template
 
 Web Challenge
