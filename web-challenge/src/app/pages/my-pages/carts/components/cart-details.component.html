@@ -1,17 +1,35 @@
 
-<form *ngIf="!cartDeleted" [formGroup]="updateCartForm" (submit)="submitUpdateCart()" [ariaDisabled]="!updatingCart">
+<form *ngIf="!cartDeleted" [formGroup]="updateCartForm" (submit)="submitUpdateCart()">
   <mat-card class="cardWithShadow">
       <mat-card-content>
         <mat-card-title>Cart details</mat-card-title><br/>
         <div class="other-info">
           <div>
-            <b>Cart id: </b> {{ cart.id }}<br>
-            <b>User: </b> {{ cartUser.firstName }} {{ cartUser.lastName }}<br>
-            <b>Total amount: </b> {{ cart.total }} €<br>
-            <b>Discounted total amount: </b> {{ cart.discountedTotal }} €<br>
-            <b>Total number of products: </b> {{ cart.totalProducts }}<br>
-            <b>Total quantity: </b> {{ cart.totalQuantity }}<br>
+            <b>Cart owner: </b>{{ cartUser.firstName }} {{ cartUser.lastName }}<br><br>
+            <mat-form-field class="half-size">
+              <mat-label>Total amount</mat-label>
+              <input matInput value="{{ cart.total }}" formControlName="total" [disabled]="!updatingCart">
+            </mat-form-field><br>
+            <mat-form-field class="half-size">
+              <mat-label>Discounted total amount</mat-label>
+              <input matInput value="{{ cart.discountedTotal }}" formControlName="discountedTotal" [disabled]="!updatingCart">
+            </mat-form-field><br>
+            <mat-form-field class="half-size">
+              <mat-label>Total number of products</mat-label>
+              <input matInput value="{{ cart.totalProducts }}" formControlName="totalProducts" [disabled]="!updatingCart">
+            </mat-form-field><br>
+            <mat-form-field class="half-size">
+              <mat-label>Total quantity</mat-label>
+              <input matInput value="{{ cart.totalQuantity }}" formControlName="totalQuantity" [disabled]="!updatingCart">
+            </mat-form-field>
           </div>
+        </div>
+        <div class="other-info" >
+          <button type="submit" mat-flat-button *ngIf="updatingCart">Save cart</button>
+          <button type="submit" mat-flat-button *ngIf="!updatingCart">Update cart</button>
+        </div>
+        <div class="other-info">
+          <button mat-flat-button (click)="deleteCart()">Delete cart</button>
         </div>
         <hr>
         <h3>Products in cart: </h3>

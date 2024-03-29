@@ -20,6 +20,7 @@ export class AppCartDetailsComponent implements OnInit {
   @Input() cart: Cart = {} as Cart;
   @Input() cartUser: User = {} as User;
   @Input() productsInCart: Product[] = [];
+  @Input() allUsers: User[] = [];
 
   route: ActivatedRoute = inject(ActivatedRoute);
   updatingCart = false;
@@ -32,7 +33,10 @@ export class AppCartDetailsComponent implements OnInit {
   ];
 
   updateCartForm = new FormGroup({
-
+    total: new FormControl(0),
+    discountedTotal: new FormControl(0),
+    totalProducts: new FormControl(0),
+    totalQuantity: new FormControl(0),
   })
 
   constructor(private cartsService: CartsService, private usersService: UsersService) {
@@ -47,6 +51,10 @@ export class AppCartDetailsComponent implements OnInit {
       this.usersService.getUser(this.cart.userId).subscribe(userRes => {
         this.cartUser = userRes;
       });
+
+      this.usersService.getAllUsers(0, 0, "").subscribe(res => {
+        this.allUsers = res.users ?? [];
+      });
     });
 
   }
@@ -57,16 +65,27 @@ export class AppCartDetailsComponent implements OnInit {
     if(!this.updatingCart){
       this.updateCartForm.disable();
   
-      this.cartsService.updateCart(this.cart).subscribe(res => {
-        this.cartDeleted = res.isDeleted ?? false;
+      let cart: Cart = {
+        id: this.cartId,
+        products: this.cart.products,
+        total: this.updateCartForm.value.total ?? 0,
+        discountedTotal: this.updateCartForm.value.discountedTotal ?? 0,
+        totalProducts: this.updateCartForm.value.totalProducts ?? 0,
+        totalQuantity: this.updateCartForm.value.totalQuantity ?? 0,
+        userId: this.cart.userId,
+      };
+  
+      this.cartsService.updateCart(cart).subscribe(res => {
+        console.log(res)
       });
 
       return;
     }
+
     this.updateCartForm.enable();
   }
 
-  deleteUser(){
+  deleteCart(){
     this.cartsService.deleteCart(this.cart.id!).subscribe(res => {
       this.cartDeleted = res.isDeleted ?? false;
       this.ngOnInit();

@@ -30,7 +30,7 @@ export class CartsService {
   }
 
   updateCart(cart: Cart):Observable<Cart>{
-    return this.http.put<Cart>(this.baseUrl + "/" + cart.id, cart);
+    return this.http.patch<Cart>(this.baseUrl + "/" + cart.id, cart);
   }
 
   deleteCart(cartId: Number): Observable<Cart>{
