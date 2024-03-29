@@ -1,30 +1,37 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { User } from '../models/user';
 import { UsersService } from '../services/users.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Address } from '../models/address';
+import { AppAddUserDialog } from './add-user-dialog.component';
 
 @Component({
   selector: 'app-products',
   templateUrl: './users.component.html',
+  styleUrls: ['./styles/users.component.scss']
 })
 
 export class AppUsersComponent implements OnInit {
 
   @Input() user: User = {} as User;
-  usersList: User[];
+  public usersList: User[];
   filteredUsersList: User[];
   searchValue: string = "";
   limitValue: number = 0;
   skipValue: number = 0;
   selectValue: string = "";
-  displayedColumns: string[] = ['image', 'name', 'address', 'email', 'phone'];
+  displayedColumns: string[] = ['image', 'name', 'birthDate', 'address', 'email'];
+  dialogOpened = false;
+
   imports: [
     CommonModule,
     ReactiveFormsModule
   ];
+    static usersList: any;
 
-  constructor(private usersService: UsersService) {
+  constructor(private usersService: UsersService, private addUserDialog: MatDialog) {
     this.getAllUsers();
   }
 
@@ -63,8 +70,8 @@ export class AppUsersComponent implements OnInit {
     this.getAllUsers();
   }
 
-  handleTableRowClick(user: User){
-    console.log("Clicked: " + user.id);
+  openAddUserDialog(){
+    this.addUserDialog.open(AppAddUserDialog,{width:'50%'});
   }
 
   ngOnInit(): void {}

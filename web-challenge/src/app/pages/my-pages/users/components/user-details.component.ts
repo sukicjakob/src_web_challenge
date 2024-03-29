@@ -16,7 +16,7 @@ import { Company } from '../models/company';
 @Component({
   selector: 'app-user-details',
   templateUrl: './user-details.component.html',
-  styleUrls: ['./styles/user-details.component.scss']
+  styleUrls: ['./styles/users.component.scss']
 })
 
 export class AppUserDetailsComponent implements OnInit {
@@ -66,9 +66,9 @@ export class AppUserDetailsComponent implements OnInit {
     this.usersService.getUser(this.userId).subscribe(res => {
       this.user = res || {}; 
       this.userAddress = res.address;
-      this.userBank = res.bank;
-      this.userCompany = res.company;
-      this.selectedGender = this.user.gender;
+      this.userBank = res.bank || {} as Bank;
+      this.userCompany = res.company || {} as Company;
+      this.selectedGender = this.user.gender || "";
     });
 
     this.usersService.getUsersCarts(this.userId).subscribe(res => {

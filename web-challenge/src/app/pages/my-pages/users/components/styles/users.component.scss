@@ -42,7 +42,7 @@
 .other-info{
     display: flex;
     width: 100%;
-    
+
     .column{
         flex-direction: column;
     }
@@ -62,4 +62,24 @@
     .bank-info, .employment-info{
         width: 50%;
     }
+}
+
+.example-button-container {
+    position:fixed;
+    text-align:center;
+    border-radius: 50%;
+    bottom: 2%;
+    right: 2%;
+}
+
+.example-button-container {
+    position:fixed;
+    text-align:center;
+    border-radius: 50%;
+    bottom: 2%;
+    right: 2%;
+}
+
+.custom-dialog-field{
+    width: 100%;
 }

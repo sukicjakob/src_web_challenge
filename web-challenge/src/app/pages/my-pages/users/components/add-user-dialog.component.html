@@ -1,0 +1,52 @@
+<h2 mat-dialog-title>Add a new user</h2>
+  <form [formGroup]="addUserForm" (submit)="submitAddUser()">
+  <mat-dialog-content class="mat-typography">
+    <div>
+      <div>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>First name</mat-label>
+              <input matInput value="{{ user.firstName }}" formControlName="firstName">
+            </mat-form-field>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>Last name</mat-label>
+              <input matInput value="{{ user.lastName }}" formControlName="lastName">
+            </mat-form-field>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>Date of birth</mat-label>
+              <input matInput [matDatepicker]="picker" value="{{ user.birthDate }}" formControlName="birthDate">
+              <mat-hint>YYYY-MM-DD</mat-hint>
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>Email</mat-label>
+              <input matInput value="{{ user.email }}" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>Address</mat-label>
+              <input matInput value="{{ userAddress.address }}" formControlName="address">
+            </mat-form-field>
+            <br>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>Postal code</mat-label>
+              <input matInput value="{{ userAddress.postalCode }}" formControlName="postalCode">
+            </mat-form-field>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>City</mat-label>
+              <input matInput value="{{ userAddress.city }}" formControlName="city">
+            </mat-form-field>
+            <br/>
+            <mat-form-field class="custom-dialog-field">
+              <mat-label>State</mat-label>
+              <input matInput value="{{ userAddress.state }}" formControlName="state">
+            </mat-form-field>
+            <br/>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button color="primary">
+      Add
+    </button>
+  </mat-dialog-actions>
+</form>
