@@ -113,7 +113,7 @@ export class AppUserDetailsComponent implements OnInit {
       };
   
       this.usersService.updateUser(user).subscribe(res => {
-        this.userDeleted = res.isDeleted ?? false;
+        console.log(res);
       });
 
       return;

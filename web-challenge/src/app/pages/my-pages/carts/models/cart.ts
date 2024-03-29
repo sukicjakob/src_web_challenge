@@ -18,5 +18,6 @@ export interface Cart {
     totalProducts?: number,
     totalQuantity?: number,
     user?: User,
-    isDeleted?: boolean
+    isDeleted?: boolean,
+    merge?: boolean
 }

@@ -41,6 +41,7 @@ export class AppCartDetailsComponent implements OnInit {
 
   constructor(private cartsService: CartsService, private usersService: UsersService) {
     this.cartId = Number(this.route.snapshot.params['id']);
+    this.updateCartForm.disable();
 
     if(!this.updatingCart)
       this.updateCartForm.disable();
@@ -65,7 +66,7 @@ export class AppCartDetailsComponent implements OnInit {
     if(!this.updatingCart){
       this.updateCartForm.disable();
   
-      let cart: Cart = {
+      let newCart: Cart = {
         id: this.cartId,
         products: this.cart.products,
         total: this.updateCartForm.value.total ?? 0,
@@ -75,8 +76,9 @@ export class AppCartDetailsComponent implements OnInit {
         userId: this.cart.userId,
       };
   
-      this.cartsService.updateCart(cart).subscribe(res => {
-        console.log(res)
+      this.cartsService.updateCart(newCart).subscribe(res => {
+        this.cart = res;
+        console.log(res);
       });
 
       return;
