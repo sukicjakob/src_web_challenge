@@ -1,3 +1,7 @@
+This app was developed using Angular framework. 
+To start the app run the command "ng serve" inside the "web-challenge" directory. 
+Theme used: https://angulartemplates.com/product/modernize-free-angular-16-material-template
+
 Web Challenge
 
 Implement simple web application which will visualize data to user. Use single page application framework and REST services provided by DummyJSON. Documentation about services is available at https://dummyjson.com/docs.
