@@ -8,6 +8,7 @@ import { Product } from '../../products/models/product';
 import { User } from '../../users/models/user';
 import { UsersService } from '../../users/services/users.service';
 import { CartsService } from '../services/carts.service';
+import { ProductsService } from '../../products/services/products.service';
 
 @Component({
   selector: 'app-cart-details',
@@ -21,11 +22,17 @@ export class AppCartDetailsComponent implements OnInit {
   @Input() cartUser: User = {} as User;
   @Input() productsInCart: Product[] = [];
   @Input() allUsers: User[] = [];
+  @Input() allProducts: Product[] = [];
 
   route: ActivatedRoute = inject(ActivatedRoute);
+  selectedProductId: number = -1
+  cartUserId: number = -1
   updatingCart = false;
   cartDeleted = false;
   cartId = -1;
+  addingProduct = false;
+  productQuantity = 0;
+  totalSum: number = 0.0;
 
   imports: [
     CommonModule,
@@ -33,21 +40,17 @@ export class AppCartDetailsComponent implements OnInit {
   ];
 
   updateCartForm = new FormGroup({
-    total: new FormControl(0),
-    discountedTotal: new FormControl(0),
-    totalProducts: new FormControl(0),
-    totalQuantity: new FormControl(0),
+    cartUserId: new FormControl(-1),
+    productQuantity: new FormControl(1),
   })
 
-  constructor(private cartsService: CartsService, private usersService: UsersService) {
+  constructor(private cartsService: CartsService, private usersService: UsersService, private productsService: ProductsService) {
     this.cartId = Number(this.route.snapshot.params['id']);
-    this.updateCartForm.disable();
-
-    if(!this.updatingCart)
-      this.updateCartForm.disable();
 
     this.cartsService.getCart(this.cartId).subscribe(res => {
       this.cart = res || {}; 
+
+      this.cartUserId = this.cart.user?.id!;
 
       this.usersService.getUser(this.cart.userId).subscribe(userRes => {
         this.cartUser = userRes;
@@ -56,41 +59,62 @@ export class AppCartDetailsComponent implements OnInit {
       this.usersService.getAllUsers(0, 0, "").subscribe(res => {
         this.allUsers = res.users ?? [];
       });
+
+      this.productsService.getAllProducts(0, 0, "").subscribe(res => {
+        this.allProducts = res.products ?? [];
+      });
     });
 
   }
 
   submitUpdateCart(){
-    this.updatingCart = !this.updatingCart;
-
     if(!this.updatingCart){
-      this.updateCartForm.disable();
-  
-      let newCart: Cart = {
-        id: this.cartId,
-        products: this.cart.products,
-        total: this.updateCartForm.value.total ?? 0,
-        discountedTotal: this.updateCartForm.value.discountedTotal ?? 0,
-        totalProducts: this.updateCartForm.value.totalProducts ?? 0,
-        totalQuantity: this.updateCartForm.value.totalQuantity ?? 0,
-        userId: this.cart.userId,
-      };
-  
-      this.cartsService.updateCart(newCart).subscribe(res => {
-        this.cart = res;
-        console.log(res);
-      });
-
+      this.updatingCart  = true;
       return;
     }
 
-    this.updateCartForm.enable();
+    if(this.addingProduct){
+      this.addToCart();
+      this.selectedProductId = -1
+      this.toggleAddProduct();
+    }
+    
+    else{
+      let updatedCart: Cart = {
+        id: this.cartId,
+        products: this.productsInCart,
+        total: this.totalSum,
+        userId: this.cartUserId
+      };
+  
+      this.cartsService.updateCart(updatedCart).subscribe(res => {
+        this.cart = res;
+        this.usersService.getUser(this.cart.userId).subscribe(userRes => {
+          this.cartUser = userRes;
+        });
+        console.log(res);
+      });
+      this.updatingCart = false;
+    }
+  }
+
+  toggleAddProduct(){
+    this.addingProduct = !this.addingProduct;
   }
 
   deleteCart(){
     this.cartsService.deleteCart(this.cart.id!).subscribe(res => {
       this.cartDeleted = res.isDeleted ?? false;
       this.ngOnInit();
+    });
+  }
+
+  addToCart(){
+    let quantity = this.updateCartForm.value.productQuantity ?? 0;
+    this.productsService.getProduct(this.selectedProductId).subscribe(res => {
+      res.quantity = quantity
+      this.productsInCart.push(res);
+      this.totalSum += res.price * quantity;
     });
   }
 

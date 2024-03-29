@@ -80,6 +80,7 @@ export class AppAddCartDialog{
     addToCart(){
       let quantity = this.addCartForm.value.productQuantity ?? 0
       this.productsService.getProduct(this.selectedProductId).subscribe(res => {
+        res.quantity = quantity
         this.cartProducts.push(res);
         this.totalSum += res.price * quantity;
         return;

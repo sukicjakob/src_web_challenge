@@ -1,65 +1,108 @@
 
 <form *ngIf="!cartDeleted" [formGroup]="updateCartForm" (submit)="submitUpdateCart()">
-  <mat-card class="cardWithShadow">
-      <mat-card-content>
-        <mat-card-title>Cart details</mat-card-title><br/>
-        <div class="other-info">
-          <div>
-            <b>Cart owner: </b>{{ cartUser.firstName }} {{ cartUser.lastName }}<br><br>
-            <mat-form-field class="half-size">
-              <mat-label>Total amount</mat-label>
-              <input matInput value="{{ cart.total }}" formControlName="total">
-            </mat-form-field><br>
-            <mat-form-field class="half-size">
-              <mat-label>Discounted total amount</mat-label>
-              <input matInput value="{{ cart.discountedTotal }}" formControlName="discountedTotal">
-            </mat-form-field><br>
-            <mat-form-field class="half-size">
-              <mat-label>Total number of products</mat-label>
-              <input matInput value="{{ cart.totalProducts }}" formControlName="totalProducts">
-            </mat-form-field><br>
-            <mat-form-field class="half-size">
-              <mat-label>Total quantity</mat-label>
-              <input matInput value="{{ cart.totalQuantity }}" formControlName="totalQuantity">
-            </mat-form-field>
-          </div>
+  <mat-card class="cardWithShadow" *ngIf="!updatingCart">
+    <mat-card-content>
+      <mat-card-title>Cart details</mat-card-title><br/>
+      <div class="other-info">
+        <div>
+          <b>Cart owner: </b>{{ cartUser.firstName }} {{ cartUser.lastName }}<br><br>
+          <b>Total amount: </b>{{ cart.total }} €<br><br>
+          <b>Discounted amount: </b>{{ cart.discountedTotal }} €<br><br>
+          <b>Total products: </b>{{ cart.totalProducts }}<br><br>
+          <b>Total quantity: </b>{{ cart.totalQuantity }}<br><br>
         </div>
-        <div class="other-info" >
-          <button type="submit" mat-flat-button *ngIf="updatingCart">Save cart</button>
-          <button type="submit" mat-flat-button *ngIf="!updatingCart">Update cart</button>
-        </div>
-        <div class="other-info">
-          <button mat-flat-button (click)="deleteCart()">Delete cart</button>
-        </div>
-        <hr>
-        <h3>Products in cart: </h3>
-        <div class="row">
-        <div class="col-sm-6 col-lg-4" *ngFor="let product of cart.products">
-          <mat-card class="cardWithShadow productcard overflow-hidden">
-            <a [routerLink]="['/my-pages/product', product.id]">
-              <img
-                src="{{ product.thumbnail }}"
-                alt="imgSrc"
-                class="w-100"
-                mat-card-image
-              />
-            </a>
-            <mat-card-content class="p-b-24 p-t-12 position-relative">
-              <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{
-                product.title
-              }} (x{{ product.quantity }})</mat-card-title>
-              <div class="d-flex align-items-center justify-content-between">
-                <div class="d-flex align-items-center">
-                  <h6 class="mat-body-2 f-w-600">{{ product.price }} €</h6><br>
-                </div>
+      </div>
+      <hr>
+      <h3>Products in cart: </h3>
+      <div class="row">
+      <div class="col-sm-6 col-lg-4" *ngFor="let product of cart.products">
+        <mat-card class="cardWithShadow productcard overflow-hidden">
+          <a [routerLink]="['/my-pages/product', product.id]">
+            <img
+              src="{{ product.thumbnail }}"
+              alt="imgSrc"
+              class="w-100"
+              mat-card-image
+            />
+          </a>
+          <mat-card-content class="p-b-24 p-t-12 position-relative">
+            <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{
+              product.title
+            }} (x{{ product.quantity }})</mat-card-title>
+            <div class="d-flex align-items-center justify-content-between">
+              <div class="d-flex align-items-center">
+                <h6 class="mat-body-2 f-w-600">{{ product.price }} €</h6><br>
               </div>
-            </mat-card-content>
-          </mat-card>
+            </div>
+          </mat-card-content>
+        </mat-card>
+      </div>
+      <div class="other-info" >
+        <button type="submit" mat-flat-button *ngIf="updatingCart">Save cart</button>
+        <button type="submit" mat-flat-button *ngIf="!updatingCart">Update cart</button>
+      </div>
+      <div class="other-info">
+        <button mat-flat-button (click)="deleteCart()">Delete cart</button>
+      </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="cardWithShadow" *ngIf="updatingCart">
+    <mat-card-content>
+      <mat-card-title>Cart details</mat-card-title><br/>
+      <mat-form-field class="custom-dialog-field">
+        <mat-label>User</mat-label>
+        <mat-select [(value)]="cartUserId">
+          <mat-option *ngFor="let user of allUsers" [value]="user.id">
+            {{ user.firstName }} {{ user.lastName}}
+          </mat-option>       
+        </mat-select>
+      </mat-form-field>  
+      <div>
+        <div>
+          <hr>
+          <b>Products: </b>
+          <span>{{ productsInCart.length }} items in cart</span><br><br>
+          <div *ngFor="let product of productsInCart">
+            <ul>
+              <li>{{ product.title }} ({{ product.price }} €)</li>
+            </ul>
+          </div>
+          <button mat-button color="primary" *ngIf="!addingProduct" (click)="toggleAddProduct()">
+            Add a product
+          </button>
+          <mat-form-field class="custom-dialog-field" *ngIf="addingProduct">
+            <mat-label>Choose a product</mat-label>
+            <mat-select [(value)]="selectedProductId">
+              <mat-option *ngFor="let product of allProducts" [value]="product.id">
+                {{ product.title }} - {{ product.price }} €
+              </mat-option>       
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field *ngIf="addingProduct">
+            <mat-label></mat-label>Quantity
+            <input matInput type="number" placeholder="1" value="1" id="product-quantity-input" formControlName="productQuantity">
+          </mat-form-field><br>
+          <button type="submit" mat-button color="primary" *ngIf="addingProduct">
+            Add to cart
+          </button>
+          <hr>
+          <b>Total: {{ totalSum }} €</b> 
         </div>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </form>
+      </div>
+      <div class="other-info" >
+        <button type="submit" mat-flat-button *ngIf="updatingCart">Save cart</button>
+        <button type="submit" mat-flat-button *ngIf="!updatingCart">Update cart</button>
+      </div>
+      <div class="other-info">
+        <button mat-flat-button (click)="deleteCart()">Delete cart</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+
+</form>
 <mat-card *ngIf="cartDeleted" class="cardWithShadow">
   <mat-card-content>
     <mat-card-title>Cart was sucessfully deleted</mat-card-title><br/>
