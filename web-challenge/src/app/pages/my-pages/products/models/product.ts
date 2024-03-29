@@ -20,5 +20,6 @@ export interface Product {
     thumbnail?: string,
     images?: string[],
     isDeleted?: boolean,
-    deletedOn?: Time
+    deletedOn?: Time,
+    quantity?: number,
 }

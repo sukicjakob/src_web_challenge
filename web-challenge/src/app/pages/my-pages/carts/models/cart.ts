@@ -16,6 +16,7 @@ export interface Cart {
     discountedTotal?: number,
     userId: number,
     totalProducts?: number,
-    totalQuantity?: number
-    user?: User
+    totalQuantity?: number,
+    user?: User,
+    isDeleted?: boolean
 }

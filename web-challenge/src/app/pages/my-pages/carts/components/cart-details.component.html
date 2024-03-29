@@ -1,2 +1,49 @@
-<h1>Cart details</h1>
-Cart id: {{ cart.id }}<br/>
+
+<form *ngIf="!cartDeleted" [formGroup]="updateCartForm" (submit)="submitUpdateCart()" [ariaDisabled]="!updatingCart">
+  <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <mat-card-title>Cart details</mat-card-title><br/>
+        <div class="other-info">
+          <div>
+            <b>Cart id: </b> {{ cart.id }}<br>
+            <b>User: </b> {{ cartUser.firstName }} {{ cartUser.lastName }}<br>
+            <b>Total amount: </b> {{ cart.total }} €<br>
+            <b>Discounted total amount: </b> {{ cart.discountedTotal }} €<br>
+            <b>Total number of products: </b> {{ cart.totalProducts }}<br>
+            <b>Total quantity: </b> {{ cart.totalQuantity }}<br>
+          </div>
+        </div>
+        <hr>
+        <h3>Products in cart: </h3>
+        <div class="row">
+        <div class="col-sm-6 col-lg-4" *ngFor="let product of cart.products">
+          <mat-card class="cardWithShadow productcard overflow-hidden">
+            <a [routerLink]="['/my-pages/product', product.id]">
+              <img
+                src="{{ product.thumbnail }}"
+                alt="imgSrc"
+                class="w-100"
+                mat-card-image
+              />
+            </a>
+            <mat-card-content class="p-b-24 p-t-12 position-relative">
+              <mat-card-title class="mat-headline-2 f-s-16 m-b-4">{{
+                product.title
+              }} (x{{ product.quantity }})</mat-card-title>
+              <div class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center">
+                  <h6 class="mat-body-2 f-w-600">{{ product.price }} €</h6><br>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </form>
+<mat-card *ngIf="cartDeleted" class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Cart was sucessfully deleted</mat-card-title><br/>
+  </mat-card-content>
+</mat-card>

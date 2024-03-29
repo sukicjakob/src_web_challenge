@@ -15,8 +15,8 @@ import { AppAddUserDialog } from './users/components/add-user-dialog.component';
 import { AppCartsComponent } from './carts/components/carts.component';
 import { AppProductDetailsComponent } from './products/components/product-details.component';
 import { AppUserDetailsComponent } from './users/components/user-details.component';
-import { AppCartDetailsComponent } from './carts/components/cart-details.component';
 import { AppAddCartDialog } from './carts/components/add-cart-dialog.component';
+import { AppCartDetailsComponent } from './carts/components/cart-details.component';
 
 @NgModule({
   imports: [
@@ -33,9 +33,9 @@ import { AppAddCartDialog } from './carts/components/add-cart-dialog.component';
     AppUsersComponent,
     AppUserDetailsComponent,
     AppCartsComponent,
-    AppCartDetailsComponent,
     AppAddUserDialog,
-    AppAddCartDialog
+    AppAddCartDialog,
+    AppCartDetailsComponent
   ],
 })
 
