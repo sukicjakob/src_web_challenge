@@ -1,9 +1,44 @@
 <h2 mat-dialog-title>Add a new cart</h2>
-  <form [formGroup]="addUserForm" (submit)="submitAddCart()">
+  <form [formGroup]="addCartForm" (submit)="submitAddCart()">
   <mat-dialog-content class="mat-typography">
     <div>
       <div>
-            
+        <mat-form-field class="custom-dialog-field">
+          <mat-label>User</mat-label>
+          <mat-select [(value)]="cartUserId">
+            <mat-option *ngFor="let user of allUsers" [value]="user.id">
+              {{ user.firstName }} {{ user.lastName}}
+            </mat-option>       
+          </mat-select>
+        </mat-form-field>
+        <hr>
+        <b>Products: </b>
+        <span>{{ cartProducts.length }} items in cart</span><br><br>
+        <div *ngFor="let product of cartProducts">
+          <ul>
+            <li>{{ product.title }} ({{ product.price }} €)</li>
+          </ul>
+        </div>
+        <button mat-button color="primary" *ngIf="!addingProduct" (click)="toggleAddProduct()">
+          Add a product
+        </button>
+        <mat-form-field class="custom-dialog-field" *ngIf="addingProduct">
+          <mat-label>Choose a product</mat-label>
+          <mat-select [(value)]="selectedProductId">
+            <mat-option *ngFor="let product of allProducts" [value]="product.id">
+              {{ product.title }} - {{ product.price }} €
+            </mat-option>       
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field *ngIf="addingProduct">
+          <mat-label></mat-label>Quantity
+          <input matInput type="number" placeholder="1" value="1" id="product-quantity-input" formControlName="productQuantity">
+        </mat-form-field><br>
+        <button type="submit" mat-button color="primary" *ngIf="addingProduct">
+          Add to cart
+        </button>
+        <hr>
+        <b>Total: {{ totalSum }} €</b> 
       </div>
     </div>
   </mat-dialog-content>

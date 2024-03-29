@@ -25,7 +25,7 @@ export class AppCartsComponent implements OnInit {
   limitValue: number = 0;
   skipValue: number = 0;
   selectValue: string = "";
-  displayedColumns: string[] = ['user', 'totalQuantity', 'total', 'discountedTotal'];
+  displayedColumns: string[] = ['user', 'total'];
   imports: [
     CommonModule,
     ReactiveFormsModule
@@ -36,11 +36,11 @@ export class AppCartsComponent implements OnInit {
   }
 
   getAllCarts(){
-    this.cartsService.getAllCarts(this.limitValue, this.skipValue, this.selectValue).subscribe(res => {
+    this.cartsService.getAllCarts().subscribe(res => {
       this.cartsList = res.carts ?? [];
-      this.filteredCartsList = this.filteredCartsList;
+      this.filteredCartsList = this.cartsList;
 
-      this.cartsList.forEach(cart => {
+      this.filteredCartsList.forEach(cart => {
         this.usersService.getUser(cart.userId).subscribe(userRes => {
           cart.user = userRes;
         });
@@ -48,23 +48,17 @@ export class AppCartsComponent implements OnInit {
     });
   }
 
-  applySettings(){
-    this.limitValue = parseInt((<HTMLInputElement>document.getElementById("limitInputField")).value);
-    this.skipValue = parseInt((<HTMLInputElement>document.getElementById("skipInputField")).value);
-    this.selectValue = (<HTMLInputElement>document.getElementById("selectInputField")).value;
-    this.getAllCarts();
-  }
-
   openAddCartDialog(){
     this.addCartDialog.open(AppAddCartDialog,{width:'50%'});
   }
 
-  searchCarts(){
+  filterCarts(text: string){
+    if(!text){
+      this.filteredCartsList = this.cartsList;
+      return;
+    }
 
-  }
-
-  filterCarts(){
-
+    this.filteredCartsList = this.cartsList.filter(cart => cart.user!.firstName.toLowerCase().includes(text.toLowerCase()));
   }
 
   ngOnInit(): void {}

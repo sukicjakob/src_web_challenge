@@ -3,67 +3,30 @@
     <mat-card-content class="p-24">
       <mat-card-title>Carts</mat-card-title>
       <hr>
-      <b>Limit, skip and select settings:</b><br>
-      <mat-form-field>
-        <mat-label>Limit</mat-label>
-        <input matInput id="limitInputField">
-      </mat-form-field>
-      &nbsp;
-      <mat-form-field>
-        <mat-label>Skip</mat-label>
-        <input matInput id="skipInputField">
-      </mat-form-field>
-      &nbsp;
-      <mat-form-field>
-        <mat-label>Select</mat-label>
-        <input matInput id="selectInputField">
-      </mat-form-field>
-      &nbsp;
-      <button mat-flat-button color="primary" (click)="applySettings()">Apply</button><br>
-      <hr>
       <br>
-      <b>Search: </b>
-      <mat-form-field class="example-full-width">
-        <input matInput id="searchInputField">
-      </mat-form-field>
-      &nbsp;
-      <button mat-flat-button color="primary" (click)="searchCarts()">Search</button>
-      &nbsp;
       <b>Filter: </b>
       <mat-form-field class="example-full-width">
-        <input matInput id="filterInputField">
+        <input matInput id="filterInputField" #filter>
       </mat-form-field>
       &nbsp;
-      <button mat-flat-button color="primary" (click)="filterCarts()">Filter</button>
+      <button mat-flat-button color="primary" (click)="filterCarts(filter.value)">Filter</button>
       <hr>
       <div class="table-responsive m-t-16">
-        <table mat-table [dataSource]="cartsList" class="mat-elevation-z8">
+        <table mat-table [dataSource]="filteredCartsList" class="mat-elevation-z8">
 
           <!--- Note that these columns can be defined in any order.
                 The actual rendered columns are set as a property on the row definition" -->
         
           <!-- User -->
           <ng-container matColumnDef="user">
-            <th mat-header-cell *matHeaderCellDef> User </th>
+            <th mat-header-cell *matHeaderCellDef> <b>User</b> </th>
             <td mat-cell *matCellDef="let cart" >{{ cart.user.firstName }} {{ cart.user.lastName }}</td>
-          </ng-container>
-
-          <!-- Total quantity -->
-          <ng-container matColumnDef="totalQuantity">
-            <th mat-header-cell *matHeaderCellDef> Quantity </th>
-            <td mat-cell *matCellDef="let cart"> {{ cart.totalQuantity }} products</td>
           </ng-container>
 
           <!-- Total  -->
           <ng-container matColumnDef="total">
-            <th mat-header-cell *matHeaderCellDef> Total sum </th>
-            <td mat-cell *matCellDef="let cart"> {{ cart.total }} ({{ cart.user.bank.currency }})</td>
-          </ng-container>
-
-          <!-- Discounted total  -->
-          <ng-container matColumnDef="discountedTotal">
-            <th mat-header-cell *matHeaderCellDef> Discounted total sum </th>
-            <td mat-cell *matCellDef="let cart"> {{ cart.discountedTotal }} ({{ cart.user.bank.currency }})</td>
+            <th mat-header-cell *matHeaderCellDef> <b>Total amount</b> </th>
+            <td mat-cell *matCellDef="let cart"> {{ cart.total }} €</td>
           </ng-container>
         
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

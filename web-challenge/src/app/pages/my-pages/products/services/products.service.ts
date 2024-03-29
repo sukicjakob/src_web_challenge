@@ -50,6 +50,6 @@ export class ProductsService {
   }
 
   deleteProduct(productId: Number): Observable<Product>{
-    return this.http.delete<Product>(this.baseUrl + "/" + productId);
+    return this.http.delete<Product>(this.baseUrl + "/" + productId ?? -1);
   }
 }

@@ -13,16 +13,8 @@ export class CartsService {
 
   constructor(private http: HttpClient) {}
 
-  getAllCarts(limit: number, skip: number, select: string): Observable<CartsResponse>{
-    let params = "?limit=" + limit;
-    
-    if(skip > 0)
-      params += "&skip=" + skip;
-
-    if(select)
-      params += "&select=" + select;
-
-    return this.http.get<CartsResponse>(this.baseUrl + params);
+  getAllCarts(): Observable<CartsResponse>{
+    return this.http.get<CartsResponse>(this.baseUrl);
   }
 
   getCart(cartId: number): Observable<Cart>{

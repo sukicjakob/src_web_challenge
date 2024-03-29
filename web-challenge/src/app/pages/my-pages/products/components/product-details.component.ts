@@ -52,7 +52,7 @@ export class AppProductDetailsComponent implements OnInit {
   }
 
   deleteProduct(){
-    this.productsService.deleteProduct(this.product.id).subscribe(res => {
+    this.productsService.deleteProduct(this.product.id!).subscribe(res => {
       console.log("Deleted product");
     })
   }
