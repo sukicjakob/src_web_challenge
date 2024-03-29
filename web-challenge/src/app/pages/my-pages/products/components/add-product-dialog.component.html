@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>Add a new product</h2>
+  <form [formGroup]="addProductForm" (submit)="submitAddProduct()">
+  <mat-dialog-content class="mat-typography">
+    <div>
+      <div>
+        <mat-form-field class="full-size">
+          <mat-label>Title</mat-label>
+          <input matInput formControlName="title">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Description</mat-label>
+          <input matInput formControlName="description">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Price</mat-label>
+          <input type="number" matInput formControlName="price">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>DiscountPercentage</mat-label>
+          <input type="number" matInput formControlName="discountPercentage">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Rating</mat-label>
+          <input type="number" matInput formControlName="rating">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Stock</mat-label>
+          <input type="number" matInput formControlName="stock">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Brand</mat-label>
+          <input matInput formControlName="brand">
+        </mat-form-field><br>
+        <mat-form-field class="full-size">
+          <mat-label>Category</mat-label>
+          <input matInput formControlName="category">
+        </mat-form-field><br> 
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button color="primary">
+      Add
+    </button>
+  </mat-dialog-actions>
+</form>

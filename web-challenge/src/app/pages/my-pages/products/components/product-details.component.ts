@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
-  templateUrl: './product-details.component.html'
+  templateUrl: './product-details.component.html',
+  styleUrls: ['./styles/products.component.scss']
 })
 
 export class AppProductDetailsComponent implements OnInit {
@@ -14,6 +15,9 @@ export class AppProductDetailsComponent implements OnInit {
   @Input() product: Product = {} as Product;
   route: ActivatedRoute = inject(ActivatedRoute);
   productId = -1;
+
+  updatingProduct = false;
+  productDeleted = false;
 
   updateProductForm = new FormGroup({
     title: new FormControl(''),
@@ -27,6 +31,7 @@ export class AppProductDetailsComponent implements OnInit {
   })
 
   constructor(private productsService: ProductsService) {
+    this.updateProductForm.disable();
     this.productId = Number(this.route.snapshot.params['id']);
     this.productsService.getProduct(this.productId).subscribe(res => {
       this.product = res || {}; 
@@ -34,26 +39,39 @@ export class AppProductDetailsComponent implements OnInit {
   }
 
   submitUpdateProduct(){
-    let product: Product = {
-      id: this.productId,
-      title: this.updateProductForm.value.title ?? '',
-      description: this.updateProductForm.value.description ?? '',
-      price: this.updateProductForm.value.price ?? 0,
-      discountPercentage: this.updateProductForm.value.discountPercentage ?? 0,
-      rating: this.updateProductForm.value.rating ?? 0,
-      stock: this.updateProductForm.value.stock ?? 0,
-      brand: this.updateProductForm.value.brand ?? '',
-      category: this.updateProductForm.value.category ?? ''
+    this.updatingProduct = !this.updatingProduct
+    
+    if(!this.updatingProduct){
+
+      this.updateProductForm.disable();
+
+      let product: Product = {
+        id: this.productId,
+        title: this.updateProductForm.value.title ?? '',
+        description: this.updateProductForm.value.description ?? '',
+        price: this.updateProductForm.value.price ?? 0,
+        discountPercentage: this.updateProductForm.value.discountPercentage ?? 0,
+        rating: this.updateProductForm.value.rating ?? 0,
+        stock: this.updateProductForm.value.stock ?? 0,
+        brand: this.updateProductForm.value.brand ?? '',
+        category: this.updateProductForm.value.category ?? ''
+      }
+
+      this.productsService.updateProduct(product).subscribe(res => {
+        this.product = res;
+        console.log(res);
+      });
+
+      return;
     }
 
-    this.productsService.updateProduct(product).subscribe(res => {
-      this.product = res;
-    });
+    this.updateProductForm.enable();
   }
 
   deleteProduct(){
     this.productsService.deleteProduct(this.product.id!).subscribe(res => {
-      console.log("Deleted product");
+      this.productDeleted = res.isDeleted ?? false;
+      console.log(res);
     })
   }
 

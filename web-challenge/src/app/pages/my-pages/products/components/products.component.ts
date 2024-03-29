@@ -3,10 +3,13 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Product } from '../models/product';
 import { ProductsService } from 'src/app/pages/my-pages/products/services/products.service';
 import { CommonModule } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { AppAddProductDialog } from './add-product-dialog.component';
 
 @Component({
   selector: 'app-products',
-  templateUrl: './products.component.html'
+  templateUrl: './products.component.html',
+  styleUrls: ['./styles/products.component.scss']
 })
 
 export class AppProductsComponent implements OnInit {
@@ -36,7 +39,7 @@ export class AppProductsComponent implements OnInit {
     category: new FormControl(''),
   })
 
-  constructor(private productsService: ProductsService) {
+  constructor(private productsService: ProductsService, private addProductDialog: MatDialog) {
     this.getAllProducts();
     this.getCategories();
   }
@@ -117,6 +120,10 @@ export class AppProductsComponent implements OnInit {
       this.selectedCategory = category;
 
     this.getAllProducts();
+  }
+
+  openAddProductDialog(){
+    this.addProductDialog.open(AppAddProductDialog,{width:'50%'});
   }
 
   ngOnInit(): void {}

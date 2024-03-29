@@ -1,70 +1,59 @@
-<h1>Product details</h1>
-
-<h2>Id:</h2> 
-<p>{{ product.id }}</p>
-
-<h2>Title: </h2>
-<p>{{ product.title }}</p>
-
-
-<h2>Description: </h2>
-<p>{{ product.description }}</p>
-
-
-<h2>Price: </h2>
-<p>{{ product.price }}</p>
-
-
-<h2>Discount percentage: </h2>
-<p>{{ product.discountPercentage }}</p>
-
-
-<h2>Rating: </h2>
-<p>{{ product.rating }}</p>
-
-
-<h2>Stock: </h2>
-<p>{{ product.stock }}</p>
-
-<h2>Brand: </h2>
-<p>{{ product.brand }}</p>
-
-<h2>Category: </h2>
-<p>{{ product.category }}</p>
-
-<h2>Thumbnail: </h2>
-<p><img src="{{ product.thumbnail }}" alt="product thumbnail"/></p>
-
-<h2>Update product</h2>
-<section class="listing-apply">
-  <h2 class="section-heading">Apply now to live here</h2>
-  <form [formGroup]="updateProductForm" (submit)="submitUpdateProduct()">
-    <label for="title">Title</label>
-    <input id="title" type="text" formControlName="title">
-
-    <label for="description">Description</label>
-    <input id="description" type="text" formControlName="description">
-
-    <label for="price">Price</label>
-    <input id="price" type="text" formControlName="price">
-
-    <label for="discountPercentage">Discount percentage</label>
-    <input id="discountPercentage" type="text" formControlName="discountPercentage">
-    
-    <label for="rating">Rating</label>
-    <input id="rating" type="text" formControlName="rating">
-
-    <label for="stock">Stock</label>
-    <input id="stock" type="text" formControlName="stock">
-
-    <label for="brand">Brand</label>
-    <input id="brand" type="text" formControlName="brand">
-
-    <label for="category">Category</label>
-    <input id="category" type="text" formControlName="category">
-
-    <button type="submit" class="primary">Add product</button>
+<form *ngIf="!productDeleted" [formGroup]="updateProductForm" (submit)="submitUpdateProduct()" [ariaDisabled]="!updatingProduct">
+  <mat-card class="cardWithShadow">
+      <mat-card-content>
+        <mat-card-title>Product details</mat-card-title><br/>
+        <div class="user-details-card">
+          <div class="info-section">
+                <mat-form-field class="full-size">
+                  <mat-label>Title</mat-label>
+                  <input matInput value="{{ product.title }}" formControlName="title">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Description</mat-label>
+                  <input matInput value="{{ product.description }}" formControlName="description">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Price</mat-label>
+                  <input type="number" matInput value="{{ product.price }}" formControlName="price">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>DiscountPercentage</mat-label>
+                  <input type="number" matInput value="{{ product.discountPercentage }}" formControlName="discountPercentage">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Rating</mat-label>
+                  <input type="number" matInput value="{{ product.rating }}" formControlName="rating">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Stock</mat-label>
+                  <input type="number" matInput value="{{ product.stock }}" formControlName="stock">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Brand</mat-label>
+                  <input matInput value="{{ product.brand }}" formControlName="brand">
+                </mat-form-field><br>
+                <mat-form-field class="full-size">
+                  <mat-label>Category</mat-label>
+                  <input matInput value="{{ product.category }}" formControlName="category">
+                </mat-form-field><br>
+          </div>
+          <div class="image-section">
+              <img src="{{ product.thumbnail }}" alt="user image"/><br>
+                <img *ngFor="let image of product.images"src="{{image}}" style="width: auto; height: 10vh; object-fit: cover;" alt="Product image">
+          </div>
+        </div>
+        <div class="other-info" >
+          <button type="submit" mat-flat-button *ngIf="updatingProduct">Save product</button>
+          <button type="submit" mat-flat-button *ngIf="!updatingProduct">Update product</button>
+        </div>
+        <div class="other-info">
+          <button mat-flat-button (click)="deleteProduct()">Delete product</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </form>
-</section>
-<h2>Delete product</h2>
-<button type="submit" class="primary" (click)="deleteProduct()">Delete</button>
+<mat-card *ngIf="productDeleted" class="cardWithShadow">
+  <mat-card-content>
+    <mat-card-title>Product was sucessfully deleted</mat-card-title><br/>
+  </mat-card-content>
+</mat-card>

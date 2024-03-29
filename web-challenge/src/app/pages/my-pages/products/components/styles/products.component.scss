@@ -1,0 +1,77 @@
+.user-details-card{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 1024px) {
+        flex-direction: column-reverse;
+    }
+
+    mat-card-subtitle{
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: black;
+        padding-bottom: 0.5em;
+    }
+
+    .half-size{
+        width: 50%;
+    }
+
+    .full-size{
+        width: 100%;
+    }
+
+    .info-section{
+        width: 50%;
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+    }
+
+    .image-section{
+        width: 50%;
+        text-align: center;
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+    }
+}
+
+.other-info{
+    display: flex;
+    width: 100%;
+
+    .column{
+        flex-direction: column;
+    }
+
+    mat-card-subtitle{
+        font-weight: bold;
+        font-size: 14px;
+        text-transform: uppercase;
+        color: black;
+        padding-bottom: 0.5em;
+    }
+
+    .carts-info, .posts-info, .todos-info{
+        width: 100%;
+    }
+
+    .bank-info, .employment-info{
+        width: 50%;
+    }
+}
+
+.example-button-container {
+    position:fixed;
+    text-align:center;
+    border-radius: 50%;
+    bottom: 2%;
+    right: 2%;
+}
+
+.custom-dialog-field{
+    width: 100%;
+}
